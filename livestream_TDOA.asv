@@ -14,20 +14,23 @@ tic;
 sec = 10;
 Fs = Microphone.SampleRate;
 totalRecording = zeros((Fs*sec),2);
-count = -1;
+count = 0;
 
 while (toc < sec)
     count = count+1;
+    totalRecording(
     audio = step(Microphone);
-    totalRecording(Fs*count+1:Fs*count+1024, :) = audio;
+    plot(audio);
     audio(1,1)
+    axis([0 1024 -1 1])
+    drawnow
+    %step(SpecAnalyzer, audio);
+    %step(Speaker, audio);
 end
 
-plot(totalRecording);
-
 %convertSamplesToSeconds = (1:length(audio))/Fs;
-%plot(1:length(totalRecording(1:end,1)), totalRecording(1:end,1))
-%axis([0,length(totalRecording)/Fs,-1,1])
+plot(1:length(totalRecording(1:end,1)), totalRecording(1:end,1))
+axis([0,length(totalRecording)/Fs,-1,1])
 title('Audio')
 ylabel('Amplitude')
 
