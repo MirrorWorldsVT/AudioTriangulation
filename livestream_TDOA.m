@@ -11,19 +11,18 @@ Microphone = dsp.AudioRecorder;
 %process frame-by-frame in a loop
 %will need two loops for two different microphones
 tic;
-sec = 10;
-Fs = Microphone.SampleRate;
-totalRecording = zeros((Fs*sec),2);
-count = -1;
+sec = 5;
+Sr = Microphone.SampleRate;
+totalRecording = zeros((Sr*sec),2);
 
-while (toc < sec)
-    count = count+1;
+for count=0:sec*Sr/Microphone.SamplesPerFrame
     audio = step(Microphone);
-    totalRecording(Fs*count+1:Fs*count+1024, :) = audio;
-    audio(1,1)
+    %pause(0.1)
+    totalRecording(Sr*count+1:Sr*count+Microphone.SamplesPerFrame, :) = audio;
 end
 
 plot(totalRecording);
+soundsc(totalRecording)
 
 %convertSamplesToSeconds = (1:length(audio))/Fs;
 %plot(1:length(totalRecording(1:end,1)), totalRecording(1:end,1))
