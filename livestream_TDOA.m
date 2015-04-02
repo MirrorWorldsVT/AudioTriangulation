@@ -1,12 +1,8 @@
 function [ timeDiff, corr, lag ] = livestream_TDOA(  )
 %function to find time difference of arrival using two live audio streams
-%   
 
-%Visualization of audio spectrum frame by frame
-%Create system objects and initialize them
+
 Microphone = dsp.AudioRecorder;
-%Speaker = dsp.AudioPlayer;
-%SpecAnalyzer = dsp.SpectrumAnalyzer;
 
 %process frame-by-frame in a loop
 %will need two loops for two different microphones
