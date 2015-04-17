@@ -2,4 +2,5 @@ UsingTestPlatform = false;
 CreateOutputFile = false;
 TimeToRecord = 10;
 numChannels = 2;
-dist = 210; %in inches
+micDist = 210; %in inches
+soundSpeed = 13397.2441; %in inches/second

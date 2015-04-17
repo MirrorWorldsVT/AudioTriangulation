@@ -1,6 +1,6 @@
 UsingTestPlatform = false; %Remember to use ASIO for non-test platform
 CreateOutputFile = false;
-TimeToRecord = 30;
+TimeToRecord = 60;
 
 if (CreateOutputFile)
     AFW = dsp.AudioFileWriter('MultiRecordOut.wav','FileFormat', 'WAV');
@@ -30,7 +30,7 @@ while toc < TimeToRecord
   
   time_diff = TDOA_wrapper(audioIn);
   %disp(time_diff*340*39.3701) %Time difference in inches
-  disp((221-(time_diff*340.29*39.3701))/2) %Distance from 1 microphone on a line in a 2 mic system
+  disp((109-(time_diff*340.29*39.3701))/2) %Distance from 1 microphone on a line in a 2 mic system
   %plot(audioIn)
   %drawnow
   

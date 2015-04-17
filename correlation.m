@@ -4,6 +4,7 @@ function [corr, lag] = correlation(a,b)
 %Duplicates the xcorr() function without using the MatLAB signal processing toolbox
 
 corrLength = length(a) + length(b) - 1;
+%corrLength = maxlag
 corr = fftshift(ifft(fft(a, corrLength) .* conj(fft(b, corrLength))));
 lag = -(length(a) - 1) : length(a) - 1;
 end
