@@ -1,5 +1,6 @@
 function [ timeDiff, corr, lag ] = TDOA( audio_one, audio_two, Fs )
 %TDOA calculates the time difference of arrival between two audio sources
+
 %maxlag = floor((210/13397.2441)*Fs);
 [corr, lag] = correlation(audio_one, audio_two); %Find the correlation of the audio input
 [~, index] = max(corr); %Get the index with the maximum correlation

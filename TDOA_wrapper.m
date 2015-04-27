@@ -1,6 +1,6 @@
 function [ output_array ] = TDOA_wrapper( input_array )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%TDOA_wrapper calls the TDOA function with each pair of microphones in the array.
+
 [numSamples, n] = size(input_array);
 
 timediff = zeros(n*(n-1)/2, 1);
