@@ -10,7 +10,7 @@ distanceHeight = linspace(1.5, 1.5, 1000);
 sourceHeight = linspace(2, 2, 1000);
 
 str1 = ['\bf \leftarrow TDoA = ', num2str(TDoA), ' in'];
-str2 = ['\bf \downarrow ', num2str(dist), ' in'];
+str2 = ['\bf ]
 
 
 subplot (1, 1, 1); 
@@ -21,7 +21,6 @@ plot(sourceArray, sourceHeight, 'g', 'LineWidth', 2);
 hold on;
 
 text(TDoA, 2, str1, 'HorizontalAlignment', 'left');
-%text(dist, :, str2);
 
 x1 = [.35 0.05];
 y1 = [1.4 1.2];
