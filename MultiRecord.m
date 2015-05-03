@@ -1,12 +1,17 @@
-function [ totalRecording ] = MultiRecord( )
+function [  ] = MultiRecord( )
+%totalRecording is output!
+
 
 UsingTestPlatform = false; %Remember to use ASIO for non-test platform
 CreateOutputFile = false;
-TimeToRecord = 60;
+TimeToRecord = 20;
 NumberOfMicrophones = 2;
-MicDist = 109;
-LiveGraph = false;
+MicDist = 100;
+LiveGraph = false; %false? ***********
 SoundSpeed = 13397.2441; %Speed of sound in inches per second
+
+tempDistQueue = zeros(100, 1);
+i = 1;
 
 if (CreateOutputFile)
     AFW = dsp.AudioFileWriter('MultiRecordOut.wav','FileFormat', 'WAV');
@@ -37,6 +42,14 @@ while toc < TimeToRecord
   %disp(time_diff*SoundSpeed) %Time difference in inches
   disp((MicDist-(time_diff*SoundSpeed))/2) %Distance from 1 microphone on a line in a 2 mic system
   
+  tdoaDist = (MicDist-(time_diff*SoundSpeed))/2;
+  %displaySoundSource(MicDist, tdoaDist);
+  
+  if tdoaDist <= MicDist && tdoaDist >= 0
+     tempDistQueue(i) = tdoaDist;
+     i = i + 1;
+  end
+  
   if LiveGraph
     plot(audioIn)
     drawnow
@@ -54,5 +67,16 @@ if (CreateOutputFile)
 end
 release(H);
 disp('Recording complete');
+
+j = 1;
+ave = 0;
+while j < i
+   ave = tempDistQueue(j) + ave;
+   j = j + 1;
+end
+
+average = ave/i
+displaySoundSource(MicDist, average);
+
 
 end
