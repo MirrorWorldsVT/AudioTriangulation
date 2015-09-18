@@ -1,13 +1,11 @@
 function [  ] = MultiRecord( )
-%totalRecording is output!
 
-
-UsingTestPlatform = false; %Remember to use ASIO for non-test platform
-CreateOutputFile = false;
-TimeToRecord = 20;
+%--- Settings ---
+CreateOutputFile = false; %Whether to save the recording to a WAV file
+TimeToRecord = 20; %Time in seconds to record
 NumberOfMicrophones = 2;
-MicDist = 100;
-LiveGraph = false; %false? ***********
+MicDist = 12; %The distance between the microphones in inches
+LiveGraph = false; %Show the sound clips while recording
 SoundSpeed = 13397.2441; %Speed of sound in inches per second
 
 tempDistQueue = zeros(100, 1);
@@ -16,18 +14,13 @@ i = 1;
 if (CreateOutputFile)
     AFW = dsp.AudioFileWriter('MultiRecordOut.wav','FileFormat', 'WAV');
 end
+
 H = dsp.AudioRecorder;
 H.QueueDuration = 2; %Store 2 seconds of audio in the queue
 H.OutputNumOverrunSamples = true; %Report when audio samples are lost
 H.SamplesPerFrame = 48000; %1 Frame = 1 Second of audio
-
-if UsingTestPlatform
-    disp('Using Test Platform');
-    H.NumChannels = 2;
-else
-    H.SampleRate = 48000; %Our Audio-Technica mics record at 48000
-    H.NumChannels = NumberOfMicrophones;
-end
+H.SampleRate = 48000; %Our Audio-Technica mics record at 48000
+H.NumChannels = NumberOfMicrophones;
 
 disp('Microphones Recording...');
 count = 0;
@@ -39,11 +32,14 @@ while toc < TimeToRecord
     step(AFW,audioIn);
   end
   time_diff = TDOA_wrapper(audioIn);
-  %disp(time_diff*SoundSpeed) %Time difference in inches
-  disp((MicDist-(time_diff*SoundSpeed))/2) %Distance from 1 microphone on a line in a 2 mic system
+  %disp(time_diff*SoundSpeed) %Time difference in sound inches
   
   tdoaDist = (MicDist-(time_diff*SoundSpeed))/2;
-  %displaySoundSource(MicDist, tdoaDist);
+  
+  disp(tdoaDist) %Distance from 1 microphone on a line in a 2 mic system
+  
+  displaySoundSource(MicDist, tdoaDist);
+  drawnow
   
   if tdoaDist <= MicDist && tdoaDist >= 0
      tempDistQueue(i) = tdoaDist;
