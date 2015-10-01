@@ -18,7 +18,7 @@ end
 H = dsp.AudioRecorder;
 H.QueueDuration = 2; %Store 2 seconds of audio in the queue
 H.OutputNumOverrunSamples = true; %Report when audio samples are lost
-H.SamplesPerFrame = 48000; %1 Frame = 1 Second of audio
+H.SamplesPerFrame = 48000; %This many frames = 1 Second of audio
 H.SampleRate = 48000; %Our Audio-Technica mics record at 48000
 H.NumChannels = NumberOfMicrophones;
 
@@ -63,16 +63,5 @@ if (CreateOutputFile)
 end
 release(H);
 disp('Recording complete');
-
-j = 1;
-ave = 0;
-while j < i
-   ave = tempDistQueue(j) + ave;
-   j = j + 1;
-end
-
-average = ave/i
-displaySoundSource(MicDist, average);
-
 
 end

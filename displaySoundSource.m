@@ -1,7 +1,7 @@
 function [ ] = displaySoundSource( dist, TDoA)
 
-mic = imread('mic.jpg');
-ss = imread('ss.png');
+mic = imread('mic_image.jpg');
+ss = imread('source_image.png');
 
 distanceArray = linspace(0, dist, 1000);
 sourceArray = linspace(0, TDoA, 1000);
